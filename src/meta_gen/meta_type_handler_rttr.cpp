@@ -7,7 +7,6 @@
 #include <vector>
 
 #include <rttr/registration.h>
-#pragma optimize("", off)
 
 namespace {
 

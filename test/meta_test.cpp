@@ -8,7 +8,6 @@
 #include <unordered_map>
 
 #include "inspection/inspection.h"
-#pragma optimize( "", off )  
 
 rttr::variant inst;
 void user_init() {

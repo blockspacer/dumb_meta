@@ -3,8 +3,6 @@
 #include "imgui.h"
 #include <cassert>
 
-#pragma optimize("", off)
-
 bool TypeInspectorRegistry::inspect_internal(std::string name,
 	rttr::variant &var, bool readonly,
 	meta_provider meta) {

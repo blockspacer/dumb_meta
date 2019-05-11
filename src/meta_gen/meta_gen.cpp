@@ -19,8 +19,6 @@
 
 #include <regex>
 
-#pragma optimize("", off)
-
 static llvm::cl::OptionCategory MyToolCategory("dumb_meta options");
 
 using namespace clang::tooling;
