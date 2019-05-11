@@ -1,0 +1,82 @@
+* dumb-meta
+
+This is a simple c++ reflection system, based on Clang libtooling. dumb-meta is highly inspired by unreal's meta system. 
+
+** Example
+
+#+BEGIN_SRC c++
+#include "meta_gen/reflection.h"
+#include "inspection/attribute.h"
+
+#include <string>
+#include <memory>
+
+namespace test {
+class Meta() Human {
+public:
+  Human() = default;
+
+  Meta(RangeI(0, 100)) int age;
+
+  std::string name;
+
+  const float height = 55;
+
+  std::shared_ptr<float> pt;
+
+  int *remote_id;
+
+  Meta(RangeF(.0f, 1.f)) float range;
+
+  Meta(RangeC('a', 'z')) char code;
+
+  MetaExclude() char secret;
+
+  int foo() { return 42; }
+
+  MetaExclude() int bar();
+
+
+private:
+  int id;
+};
+} // namespace test
+#+END_SRC
+
+Usage
+
+#+BEGIN_SRC c++
+#include "prop.h"
+#include "inspection/inspection.h"
+#include <rttr/type.h>
+
+rttr::variant inst;
+void user_init() {
+  meta_system_initialization();
+  inst = test::Human{};
+
+  auto &h = inst.get_value<test::Human>();
+  h.remote_id = &h.age;
+}
+
+void user_update() {
+  ImGui::Begin("orz");
+
+  inspect(inst, false, {});
+
+  ImGui::End();
+}
+
+void user_destroy() {}
+
+#+END_SRC
+
+Result:
+
+[[https://github.com/ifree/dumb_meta/raw/master/screen_shorts/orz.png]]
+
+** Dependencies
+
+   - [[http://llvm.org/releases/download.html][LLVM 4.8+]] (libtooling)
+   - [[https://rttr.org/][rttr]] (for demo purpose)
+   - [[https://github.com/ocornut/imgui][imgui]] (for demo purpose)
